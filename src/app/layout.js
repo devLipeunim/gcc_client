@@ -52,12 +52,12 @@ export const metadata = {
         height: 600,
       },
       {
-        url: "https://gcc-ssetechub.vercel.app/gcc_og_logo.jpg",
+        url: "https://gcc-ssetechub.vercel.app/images/gcc_og_logo.jpg",
         width: 300,
         height: 300,
       },
       {
-        url: "https://gcc-ssetechub.vercel.app/gcc_og_logo.jpg",
+        url: "https://gcc-ssetechub.vercel.app/images/gcc_og_logo.jpg",
         width: 1800,
         height: 1600,
         alt: "Gourmet Chef Cuisine Image",
