@@ -43,21 +43,21 @@ export const metadata = {
   openGraph: {
     title: "Gourmet Chef Cuisine",
     description: "we serve up delicious gourmet foods for all occasions",
-    url: "https://gcc-ssa.vercel.app/",
+    url: "https://gcc-ssetechub.vercel.app/",
     siteName: "Gourmet Chef Cuisine",
     images: [
       {
-        url: "https://gcc-ssa.vercel.app/gcc_og_logo.jpg",
+        url: "https://gcc-ssetechub.vercel.app/images/gcc_og_logo.jpg",
         width: 800,
         height: 600,
       },
       {
-        url: "https://gcc-ssa.vercel.app/gcc_og_logo.jpg",
+        url: "https://gcc-ssetechub.vercel.app/gcc_og_logo.jpg",
         width: 300,
         height: 300,
       },
       {
-        url: "https://gcc-ssa.vercel.app/gcc_og_logo.jpg",
+        url: "https://gcc-ssetechub.vercel.app/gcc_og_logo.jpg",
         width: 1800,
         height: 1600,
         alt: "Gourmet Chef Cuisine Image",
