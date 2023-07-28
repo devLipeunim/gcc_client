@@ -1,0 +1,43 @@
+.form__group input {
+  width: 100%;
+  background: transparent;
+  font-family: "Istok Web", sans-serif;
+  padding: 7px 20px;
+  border: none;
+  border-bottom: 1px solid rgb(15, 14, 14)4c;
+}
+
+
+.form__group {
+  margin-bottom: 30px;
+}
+
+.sorting__widget select {
+  padding: 7px 15px;
+  border: 1px solid rgb(15, 14, 14);
+  font-family: "Istok Web", sans-serif;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.checkout__bill {
+  background: #fde4e4;
+  padding: 30px;
+}
+
+.checkout__total {
+  border-top: 1px solid #ddd;
+  padding-top: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .sorting__widget select {
+    width: 100% !important;
+    font-size: 0.8rem;
+  }
+  .checkout__bill h6 {
+    font-size: 0.9rem;
+  }
+  .checkout__bill {
+    margin-top: 40px;
+  }
+}

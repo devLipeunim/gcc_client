@@ -1,4 +1,5 @@
-import pet from './pet'
+import foods from './foods'
+import categories from './categories'
 export const schema = {
-  types: [pet],
+  types: [categories,foods],
 }

@@ -1,0 +1,97 @@
+.hero__content {
+  padding-top: 60px;
+}
+
+.hero__title {
+  font-size: 2.5rem;
+  line-height: 55px;
+}
+
+.hero__title span {
+  color: #df2020;
+}
+
+.hero__content p {
+  font-size: 1rem;
+  line-height: 30px;
+  color: #777;
+}
+
+.hero__btns button {
+  border: none;
+  outline: none;
+  padding: 7px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: "Istok Web", sans-serif;
+}
+
+.order__btn {
+  background: #df2020;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.order__btn:hover {
+  background: rgb(15, 14, 14);
+}
+
+/* .animated-img{
+  animation: move 3s infinite ease alternate;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+} */
+
+.animated-arrow-right{
+  margin-left: 0.5rem;
+  transition: 2s ease;
+  animation: animate .8s ease infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}
+.all__foods-btn {
+  background: transparent;
+  border: 1px solid #df2020 !important;
+}
+
+.all__foods-btn a {
+  font-family: "Istok Web", sans-serif;
+  color: #df2020;
+}
+
+.hero__service p {
+  color: rgb(15, 14, 14);
+  font-family: "Istok Web", sans-serif;
+  /* color: rgb(15, 14, 14); */
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.shipping__icon i {
+  padding: 5px;
+  background: #df2020;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 768px) {
+  .hero__content {
+    padding-top: 40px;
+  }
+}
