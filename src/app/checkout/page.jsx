@@ -166,7 +166,7 @@ const Checkout = () => {
     <div className="w-100">
       <Helmet>
         <meta name="description" content="Secure Checkout from FlutterWave" />
-        <title>Checkout</title>
+        <title>Gourmet Chef Cuisine - Checkout</title>
       </Helmet>
       <CommonSection title="Checkout" />
       <section>

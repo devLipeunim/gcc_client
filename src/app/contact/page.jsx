@@ -7,7 +7,7 @@ const Contact = () => {
     <div className="w-100">
       <Helmet>
         <meta name="description" content="We are available 24/7" />
-        <title>Contact Us</title>
+        <title>Gourmet Chef Cuisine - Contact Us</title>
       </Helmet>
       {/* <MetaTag title="Contact" /> */}
       <h1

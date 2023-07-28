@@ -7,7 +7,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import Scart from "@/components/ShowCart/Scart";
-
+import { Suspense } from "react";
+import loading from "./loading";
 export const metadata = {
   // title: "Gourmet Chef Cuisine",
   // description: "we serve up delicious gourmet foods for all occasions",
@@ -109,10 +110,12 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Providers>
-          <Header />
-          <Scart />
-          {children}
-          <Footer />
+          <Suspense fallback={<loading />}>
+            <Header />
+            <Scart />
+            {children}
+            <Footer />
+          </Suspense>
         </Providers>
       </body>
     </html>

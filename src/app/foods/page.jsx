@@ -47,7 +47,7 @@ const AllFoods = () => {
           name="description"
           content="Yummy Foods"
         />
-        <title>All Foods</title>
+        <title>Gourmet Chef Cuisine - All Foods</title>
       </Helmet>
       {/* <MetaTag title="All-Foods" /> */}
       <CommonSection title="All Foods" />

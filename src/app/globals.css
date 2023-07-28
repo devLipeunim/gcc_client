@@ -76,80 +76,23 @@ section {
   #PRELOAD
 \*-----------------------------------*/
 
-.preload {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ff8548;
-  z-index: 10;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  transition: 500ms ease;
-}
-
-.preload > * {
-  transition: 250ms ease;
-}
-
-.preload.loaded > * {
-  opacity: 0;
-}
-
-.preload.loaded {
-  transition-delay: 250ms;
-  transform: translateY(100%);
-}
-
-.circle {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  border: 3px solid white;
-  border-block-start-color: hsla(0, 3%, 7%, 1);
-  margin-block-end: 45px;
-  -webkit-animation: rotate360 1s linear infinite;
-  animation: rotate360 1s linear infinite;
-}
-
-@keyframes rotate360 {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(1turn);
-  }
-}
-
-.preload .text {
-  background-image: linear-gradient(
-    90deg,
-    transparent 0% 16.66%,
-    hsla(0, 3%, 7%, 1) 33.33% 50%,
-    transparent 66.66% 75%
-  );
-  background-size: 500%;
-  font-size: calc(2rem + 3vw);
-  font-weight: 600;
-  line-height: 1em;
+.skeleton {
+  opacity: .7;
+  z-index: 999999999;
+  width: 100%;
+  height: 100vh;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 12px;
-  padding-inline-start: 16px;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-stroke: 0.5px hsla(180, 2%, 8%, 1);
-  animation: loadingText linear 2s infinite;
+  justify-content: center;
+
+  animation: skeleton-loading 1s linear infinite alternate;
 }
 
-@keyframes loadingText {
+@keyframes skeleton-loading {
   0% {
-    background-position: 100%;
+    background-color: hsl(200, 20%, 70%);
   }
+
   100% {
-    background-position: 0%;
+    background-color: hsl(200, 20%, 95%);
   }
 }

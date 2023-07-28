@@ -22,7 +22,7 @@ const Cart = () => {
     <div className="w-100">
       <Helmet>
         <meta name="description" content="Your Selected Item for order" />
-        <title>Cart</title>
+        <title>Gourmet Chef Cuisine - Cart</title>
       </Helmet>
       {/* <MetaTag title="Cart" /> */}
       <CommonSection title="Your Cart" />

@@ -1,6 +1,7 @@
 "use client"
 import React, { useRef } from "react";
 // import MetaTag from "./../MetaTag";
+import { Helmet } from "react-helmet";
 import CommonSection from "../../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 // import { Link } from "react-router-dom";
@@ -17,6 +18,10 @@ const Register = () => {
   return (
     <div className="w-100">
       {/* <MetaTag title="Signup" /> */}
+      <Helmet>
+        <meta name="description" content="We are available 24/7" />
+        <title>Gourmet Chef Cuisine - Register</title>
+      </Helmet>
       <CommonSection title="Signup" />
       <section>
         <Container>
