@@ -12,9 +12,9 @@ import "../../styles/all-foods.css";
 import "../../styles/pagination.css";
 
 const AllFoods = () => {
-  // useEffect(() => {
+  useEffect(() => {
     window.scroll(0, 0);
-  // }, []);
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);

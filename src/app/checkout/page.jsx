@@ -10,6 +10,9 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import "../../styles/checkout.css";
 const Checkout = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const [enterName, setEnterName] = useState("");
   const [enterEmail, setEnterEmail] = useState("");
   const [enterNumber, setEnterNumber] = useState("");
@@ -159,6 +162,7 @@ const Checkout = () => {
         ) {
           console.log("Successful");
           handleClearCart();
+          resetFormFields()
           setTimeout(() => {
             setEnterName("");
             setEnterEmail("");
