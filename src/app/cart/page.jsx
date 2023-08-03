@@ -85,7 +85,9 @@ const Tr = (props) => {
     <tr>
       <td className="text-center cart__img-box">
         <Image
-          src={image01}
+          src={image01.url}
+          width={image01?.metadata?.dimensions?.width || 300}
+          height={image01?.metadata?.dimensions?.height || 200}
           alt=""
           style={{
             width: "100%",

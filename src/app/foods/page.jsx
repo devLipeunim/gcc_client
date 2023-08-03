@@ -1,23 +1,51 @@
-"use client";
+"use client"
+
 import React, { useState, useEffect } from "react";
-// import MetaTag from "./../MetaTag";
 import { Helmet } from "react-helmet";
+import { client } from "../../../sanity/lib/client";
+import { urlForImage } from "../../../sanity/lib/image";
 import CommonSection from "../../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
-import products from "../../assets/data/products";
 import ProductCard from "../../components/UI/product-card/ProductCard";
 import ReactPaginate from "react-paginate";
 import "../../styles/all-foods.css";
 import "../../styles/pagination.css";
+
 const AllFoods = () => {
-  useEffect(() => {
+  // useEffect(() => {
     window.scroll(0, 0);
-  }, []);
+  // }, []);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [pageNumber, setPageNumber] = useState(0);
-  const searchedProduct = products.filter((item) => {
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+    const fetchFoods = async () => {
+      const query = `*[_type == "food"]{
+        title,
+        price,
+        "image01": image01.asset->{
+          url,
+          metadata {
+            dimensions {
+              width,
+              height
+            }
+          }
+        },
+        category,
+        desc
+      }`;
+      const fetchedFoods = await client.fetch(query);
+      setFoods(fetchedFoods);
+    };
+
+    fetchFoods();
+  }, []);
+
+  const searchedProduct = foods.filter((item) => {
     if (searchTerm === "") {
       return selectedCategory ? item.category === selectedCategory : true; // Filter based on selected category
     }
@@ -43,18 +71,13 @@ const AllFoods = () => {
     <div className="w-100">
       <Helmet>
         <meta name="HandheldFriendly" content="true" />
-        <meta
-          name="description"
-          content="Yummy Foods"
-        />
+        <meta name="description" content="Yummy Foods" />
         <title>Gourmet Chef Cuisine - All Foods</title>
       </Helmet>
-      {/* <MetaTag title="All-Foods" /> */}
       <CommonSection title="All Foods" />
 
       <section>
         <Container>
-          {/* <h1 className="menu">MENU</h1> */}
           <Row>
             <Col lg="6" md="6" sm="6" xs="12">
               <div className="search__widget d-flex align-items-center justify-content-between ">
@@ -83,6 +106,8 @@ const AllFoods = () => {
                   <option value="Soup & Swallow">Soup & Swallow</option>
                   <option value="Peppe Soup">Peppe Soup</option>
                   <option value="Rice Menu">Rice Menu</option>
+                  <option value="Stew">Stew</option>
+              
                   <option value="Drinks">Drinks</option>
                 </select>
               </div>

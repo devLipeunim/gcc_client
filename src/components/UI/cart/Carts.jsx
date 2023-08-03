@@ -30,7 +30,7 @@ const Carts = () => {
           {cartProducts.length === 0 ? (
             <>
               <Image src={emptyCart} alt="emptyCart" style={{width: "100%", height: "100%"}} />
-              <h6 className="text-center mt-5">No item added to the cart</h6>
+              <h6 className="text-center mt-2">No item added to the cart</h6>
             </>
           ) : (
             cartProducts.map((item, index) => (

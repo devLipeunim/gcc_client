@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store/shopping-cart/cartSlice";
 import { Container, Row, Col } from "reactstrap";
 import CommonSection from "../../components/UI/common-section/CommonSection";
-// import MetaTag from "../MetaTag";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import "../../styles/checkout.css";
 const Checkout = () => {
@@ -91,7 +90,7 @@ const Checkout = () => {
     price: item.price,
     quantity: item.quantity,
     totalPrice: item.totalPrice,
-    // image: item.image01,
+    image: item.image01,
   }));
   console.log(cartData);
   const cartDataInfo = JSON.stringify(cartData);
@@ -102,15 +101,17 @@ const Checkout = () => {
       ? parseInt(cartTotalAmount) + parseInt(deliveryFee) + 50
       : cartTotalAmount;
   console.log(totalAmount);
+
   const handleClearCart = () => {
     dispatch(cartActions.clearCart());
   };
+
   const config = {
     public_key: "FLWPUBK_TEST-e9ed7f46854efc95342a0d0a48adf0c6-X",
     tx_ref: txRef,
     amount: totalAmount,
     currency: "NGN",
-    redirect_url: "https://gcc-ssa.vercel.app/success.html",
+    // redirect_url: "https://gcc-ssa.vercel.app/success.html",
     subaccounts: [
       {
         id: "RS_9A6D440B560005800E890F75CF3FFFA4",
@@ -138,6 +139,14 @@ const Checkout = () => {
   };
 
   const handleFlutterPayment = useFlutterwave(config);
+  const resetFormFields = () => {
+    setEnterName("");
+    setEnterEmail("");
+    setEnterNumber("");
+    setEnterAddress("");
+    setEnterRoute("");
+    setOrderNote("");
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -150,12 +159,15 @@ const Checkout = () => {
         ) {
           console.log("Successful");
           handleClearCart();
-          setEnterName("");
-          setEnterEmail("");
-          setEnterNumber("");
-          setEnterAddress("");
-          setEnterRoute("");
-          setOrderNote("");
+          setTimeout(() => {
+            setEnterName("");
+            setEnterEmail("");
+            setEnterNumber("");
+            setEnterAddress("");
+            setEnterRoute("");
+            setOrderNote("");
+          }, 500);
+          // resetFormFields()
         }
         closePaymentModal();
       },

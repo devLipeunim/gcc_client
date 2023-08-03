@@ -26,7 +26,12 @@ const ProductCard = (props) => {
   return (
     <div className="product__item">
       <div className="product__img">
-        <Image src={image01} alt="product-img" />
+        <Image
+          src={image01.url}
+          width={image01?.metadata?.dimensions?.width || 300}
+          height={image01?.metadata?.dimensions?.height || 200}
+          alt="product-img"
+        />
       </div>
 
       <div className="product__content">
@@ -49,12 +54,12 @@ const ProductCard = (props) => {
             position="top-center"
             reverseOrder={true}
             containerStyle={{
-              zIndex: 99999 // For the container
-             }}
+              zIndex: 99999, // For the container
+            }}
             toastOptions={{
               className: "",
               style: {
-                zIndex: 99999 // For toasts
+                zIndex: 99999, // For toasts
               },
             }}
           />

@@ -31,7 +31,12 @@ const CartItem = ({ item }) => {
   return (
     <ListGroupItem className="border-0 cart__item">
       <div className="cart__item-info d-flex gap-2">
-        <Image src={image01} alt="product-img" />
+        <Image
+          src={image01?.url}
+          width={image01?.metadata?.dimensions?.width || 300}
+          height={image01?.metadata?.dimensions?.height || 200}
+          alt="product-img"
+        />
 
         <div className="cart__product-info w-100 d-flex align-items-center gap-4 justify-content-between">
           <div>

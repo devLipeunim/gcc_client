@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import MetaTag from "./MetaTag";
 import { Helmet } from "react-helmet";
 import { client } from "../../sanity/lib/client";
+import { urlForImage } from "../../sanity/lib/image";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import heroImg from "../assets/images/hero.png";
 import "../styles/hero-section.css";
@@ -19,7 +19,6 @@ import ProductCard from "../components/UI/product-card/ProductCard.jsx";
 import whyImg from "../assets/images/location.png";
 import networkImg from "../assets/images/network.png";
 import TestimonialSlider from "../components/UI/slider/TestimonialSlider.jsx";
-// import Head from "next/head";
 const featureData = [
   {
     title: "1. Order from your device",
@@ -36,9 +35,6 @@ const featureData = [
   },
 ];
 const Home = () => {
-  // useEffect(() => {
-  //   document.title = "Home";
-  // }, []);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -46,70 +42,200 @@ const Home = () => {
     }, 3000);
   }, []);
   const [category, setCategory] = useState("Rice");
-  const [allProducts, setAllProducts] = useState(products);
+  const [allProducts, setAllProducts] = useState([]);
   const [hotStew, setHotStew] = useState([]);
 
   useEffect(() => {
-    const filteredSoup = products.filter(
-      (item) => item.category === "Soup & Swallow"
-    );
-    const sliceSoup = filteredSoup.slice(4, 8);
-    setHotStew(sliceSoup);
+    const fetchFoodData = async () => {
+      try {
+        // Set up the query to fetch the food data from Sanity
+        const products = `*[_type == "food"]`
+        const query = `*[_type == "food" && category == "Stew"][0...4]{
+        title,
+        price,
+        "image01": image01.asset->{
+          url,
+          metadata {
+            dimensions {
+              width,
+              height
+            }
+          }
+        },  
+        category,
+        desc
+      }`;
+
+        // Fetch the data using the query
+        const productFoods = await client.fetch(products);
+        console.log(productFoods);
+        const foods = await client.fetch(query);
+        console.log(foods);
+
+        // Update the state with the fetched food data
+        setHotStew(foods);
+      } catch (error) {
+        console.error("Error fetching food data:", error);
+      }
+    };
+    fetchFoodData();
+    // const filteredSoup = products.filter(
+    //   (item) => item.category === "Soup & Swallow"
+    // );
+    // const sliceSoup = filteredSoup.slice(4, 8);
+    // setHotStew(foods);
   }, []);
 
   useEffect(() => {
     if (category === "Rice") {
-      const filteredProducts = products.filter(
-        (item) => item.category === "Rice"
-      );
-      const popularRice = filteredProducts.slice(0, 4);
-      setAllProducts(popularRice);
+      const fetchFoodData = async () => {
+        try {
+          // Set up the query to fetch the food data from Sanity
+          const query = `*[_type == "food" && category == "Rice"][0...4]{
+          title,
+          price,
+          "image01": image01.asset->{
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },  
+          category,
+          desc
+        }`;
+
+          // Fetch the data using the query
+          const foods = await client.fetch(query);
+          console.log(foods);
+
+          // Update the state with the fetched food data
+          setAllProducts(foods);
+        } catch (error) {
+          console.error("Error fetching food data:", error);
+        }
+      };
+      fetchFoodData();
+      // const filteredProducts = products.filter(
+      //   (item) => item.category === "Rice"
+      // );
+      // const popularRice = filteredProducts.slice(0, 4);
+      // setAllProducts(popularRice);
     }
 
     if (category === "Snacks") {
-      // const categoriesQuery = '*[_type == "categories"]'
-      // const filteredProducts = client.fetch(categoriesQuery)
-      // .then((data) => {
-      //   const snacksObject = data.find(item => item.title === 'Snacks');
-      //   const snacksTitle = snacksObject ? snacksObject.title : null;
-      //   console.log(snacksTitle);
-      // })
-      // .catch(console.error);
+      // Function to fetch food data from Sanity
+      const fetchFoodData = async () => {
+        try {
+          // Set up the query to fetch the food data from Sanity
+          const query = `*[_type == "food" && category == "Snacks"][0...4]{
+          title,
+          price,
+          "image01": image01.asset->{
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },  
+          category,
+          desc
+        }`;
 
-      // const foodsQuery = '*[_type == "foods"]';
-      // const filteredProducts = client
-      //   .fetch(foodsQuery)
-      //   .then((data) => console.log(data))
-      // {
-      //   const snacksObject = data.find(item => item.title === 'Snacks');
-      //   const snacksTitle = snacksObject ? snacksObject.title : null;
-      //   console.log(snacksTitle);
-      // })
-      // .catch(console.error);
+          // Fetch the data using the query
+          const foods = await client.fetch(query);
+          console.log(foods);
 
-      const filteredProducts = products.filter(
-        (item) => item.category === "Snacks"
-      );
-      const popularSnacks = filteredProducts.slice(0, 4);
-      setAllProducts(popularSnacks);
+          // Update the state with the fetched food data
+          setAllProducts(foods);
+        } catch (error) {
+          console.error("Error fetching food data:", error);
+        }
+      };
+      fetchFoodData();
     }
 
     if (category === "Soup & Swallow") {
-      const filteredProducts = products.filter(
-        (item) => item.category === "Soup & Swallow"
-      );
-      const popularSoup = filteredProducts.slice(0, 4);
-      setAllProducts(popularSoup);
+      const fetchFoodData = async () => {
+        try {
+          // Set up the query to fetch the food data from Sanity
+          const query = `*[_type == "food" && category == "Soup & Swallow"][0...4]{
+          title,
+          price,
+          "image01": image01.asset->{
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },  
+          category,
+          desc
+        }`;
+
+          // Fetch the data using the query
+          const foods = await client.fetch(query);
+          console.log(foods);
+
+          // Update the state with the fetched food data
+          setAllProducts(foods);
+        } catch (error) {
+          console.error("Error fetching food data:", error);
+        }
+      };
+      fetchFoodData();
+      // const filteredProducts = products.filter(
+      //   (item) => item.category === "Soup & Swallow"
+      // );
+      // const popularSoup = filteredProducts.slice(0, 4);
+      // setAllProducts(popularSoup);
     }
 
     if (category === "Sides") {
-      const filteredProducts = products.filter(
-        (item) => item.category === "Sides"
-      );
-      const popularSides = filteredProducts.slice(0, 3);
-      setAllProducts(popularSides);
+      const fetchFoodData = async () => {
+        try {
+          // Set up the query to fetch the food data from Sanity
+          const query = `*[_type == "food" && category == "Sides"][0...3]{
+          title,
+          price,
+          "image01": image01.asset->{
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
+          },  
+          category,
+          desc
+        }`;
 
-      setAllProducts(filteredProducts);
+          // Fetch the data using the query
+          const foods = await client.fetch(query);
+          console.log(foods);
+
+          // Update the state with the fetched food data
+          setAllProducts(foods);
+        } catch (error) {
+          console.error("Error fetching food data:", error);
+        }
+      };
+      fetchFoodData();
+
+      // const filteredProducts = products.filter(
+      //   (item) => item.category === "Sides"
+      // );
+      // const popularSides = filteredProducts.slice(0, 3);
+      // setAllProducts(popularSides);
+
+      // setAllProducts(filteredProducts);
     }
   }, [category]);
 
@@ -292,12 +418,12 @@ const Home = () => {
             <Col lg="6" md="6">
               <Image
                 src={whyImg}
-                alt="why-tasty-treat"
+                alt="why Gourmet Chef Cuisine"
                 style={{
                   width: "100%",
                   height: "100%",
                 }}
-                // className="w-100 animated-img"
+                className="w-100 animated-img"
               />
             </Col>
 
@@ -405,17 +531,5 @@ const Home = () => {
     </div>
   );
 };
-
-// export const getServerSideProps = async () =>{
-//   const foodQuery = '*[_type == "foods"]'
-//   const foods = await client.fetch(foodQuery)
-
-//   const categoriesQuery = '*[_type == "categories"]'
-//   const categories = await client.fetch(categoriesQuery)
-
-//   return{
-//     props: {foods, categories}
-//   }
-// }
 
 export default Home;

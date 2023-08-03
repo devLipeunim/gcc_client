@@ -1,39 +1,49 @@
 /* eslint-disable import/no-anonymous-default-export */
-export default {
-  name: "foods",
-  title: "Foods",
-  type: "document",
-  fields: [
-    {
-      name: "name",
-      title: "Name",
-      type: "string",
-    },
+// schemas/food.js
 
+export default {
+  name: 'food',
+  title: 'Food',
+  type: 'document',
+  fields: [
+    // {
+    //   name: 'id',
+    //   title: 'ID',
+    //   type: 'string',
+    //   description: 'The unique ID of the food product',
+    // },
     {
-      name: "coverImage",
-      title: "CoverImage",
-      type: "image",
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      description: 'The title of the food product',
+    },
+    {
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+      description: 'The price of the food product',
+    },
+    {
+      name: 'image01',
+      title: 'Image 01',
+      type: 'image',
       options: {
         hotspot: true,
       },
+      description: 'The first image of the food product',
     },
     {
-      name: "description",
-      title: "Description",
-      type: "string",
-    },
-
-    {
-      name: "price",
-      title: "Price",
-      type: "number",
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      description: 'The category of the food product',
     },
     {
-      name: "categories",
-      title: "Categories",
-      type: "array",
-      of: [{ type: "reference", to: { type: "categories" } }],
+      name: 'desc',
+      title: 'Description',
+      type: 'text',
+      description: 'The description of the food product',
     },
   ],
 };

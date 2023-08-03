@@ -13,7 +13,7 @@ export const metadata = {
   // title: "Gourmet Chef Cuisine",
   // description: "we serve up delicious gourmet foods for all occasions",
   referrer: "origin-when-cross-origin",
-  themeColor: "white",
+  themeColor: "orange",
   category: "e-commerce",
   applicationName: "Gourmet Chef Cuisine",
   authors: [
@@ -32,6 +32,7 @@ export const metadata = {
   },
   keywords: [
     "Food",
+    "Yummy Foods",
     "Food delivery in Lagos and Nigeria",
     "Food website",
     "Food delivery",
