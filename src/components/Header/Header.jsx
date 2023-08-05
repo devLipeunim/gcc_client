@@ -73,9 +73,6 @@ const Header = () => {
                   href={item.path}
                   exact
                   key={index}
-                  // className={(navClass) =>
-                  //   navClass.isActive ? "active__menu" : ""
-                  // }
                 >
                   {item.display}
                 </NavLink>

@@ -8,8 +8,10 @@ import { Container, Row, Col } from "reactstrap";
 import CommonSection from "../../components/UI/common-section/CommonSection";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import "../../styles/checkout.css";
+import { useRouter } from "next/navigation";
 const Checkout = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -84,11 +86,22 @@ const Checkout = () => {
   const deliveryFee = entries[enterRoute];
   console.log(deliveryFee);
 
+  const deliveryFeeVat = parseInt(deliveryFee) + 30;
+
   const txRef =
     "GourmetChefCuisine_" + Math.floor(Math.random() * 1000000000 + 1);
   const data = useSelector((state) => state.cart.cartItems);
   console.log(data);
+
+  const totalItems = data.length;
+  const orderId = Math.floor(Math.random() * 10000000 + 1);
+  const month = new Date().getMonth() + 1;
+  const orderDate =
+    new Date().getDate() + "/" + month + "/" + new Date().getFullYear();
+  console.log(orderDate, orderId, totalItems);
+
   const cartData = data.map((item) => ({
+    id: item.id,
     name: item.title,
     price: item.price,
     quantity: item.quantity,
@@ -98,10 +111,11 @@ const Checkout = () => {
   console.log(cartData);
   const cartDataInfo = JSON.stringify(cartData);
   console.log(cartDataInfo);
+
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const totalAmount =
     deliveryFee !== undefined
-      ? parseInt(cartTotalAmount) + parseInt(deliveryFee) + 50
+      ? parseInt(cartTotalAmount) + parseInt(deliveryFeeVat)
       : cartTotalAmount;
   console.log(totalAmount);
 
@@ -141,15 +155,48 @@ const Checkout = () => {
     },
   };
 
-  const handleFlutterPayment = useFlutterwave(config);
-  const resetFormFields = () => {
-    setEnterName("");
-    setEnterEmail("");
-    setEnterNumber("");
-    setEnterAddress("");
-    setEnterRoute("");
-    setOrderNote("");
+  const BaseUrl = "https://gcc-backendd.onrender.com";
+
+  const handleSubmit = async () => {
+    const payload = {
+      email: enterEmail,
+      name: enterName,
+      orderId: orderId,
+      orderDate: orderDate,
+      orderTotal: totalAmount,
+      address: `${enterAddress}, ${enterRoute}`,
+      products: data,
+      totalItems: totalItems,
+      subtotal: cartTotalAmount,
+      deliveryFee: deliveryFee
+    };
+
+    try {
+      const response = await fetch(`${BaseUrl}/api/v1/reciept/send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      // Check if the response is successful (status code 200) and if it contains valid JSON data
+      if (response.ok) {
+        const responseData = await response.json();
+        if (responseData.success) {
+          console.log("Email sent successfully!");
+        } else {
+          console.error("Error sending email:", responseData.message);
+        }
+      } else {
+        console.error("Error sending email:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
+
+  const handleFlutterPayment = useFlutterwave(config);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -162,7 +209,8 @@ const Checkout = () => {
         ) {
           console.log("Successful");
           handleClearCart();
-          resetFormFields()
+          handleSubmit();
+          router.push("/success");
           setTimeout(() => {
             setEnterName("");
             setEnterEmail("");
@@ -171,7 +219,6 @@ const Checkout = () => {
             setEnterRoute("");
             setOrderNote("");
           }, 500);
-          // resetFormFields()
         }
         closePaymentModal();
       },
@@ -320,7 +367,7 @@ const Checkout = () => {
                   Subtotal: <span>&#8358;{cartTotalAmount}</span>
                 </h6>
                 <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Delivery fee: <span>&#8358;{deliveryFee}</span>
+                  Delivery fee + VAT: <span>&#8358;{deliveryFee}</span>
                 </h6>
                 <div className="checkout__total">
                   <h5 className="d-flex align-items-center justify-content-between">
