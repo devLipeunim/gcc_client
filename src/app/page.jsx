@@ -51,6 +51,7 @@ const Home = () => {
         // Set up the query to fetch the food data from Sanity
         const products = `*[_type == "food"]`
         const query = `*[_type == "food" && category == "Stew"][0...4]{
+        _id,
         title,
         price,
         "image01": image01.asset->{
@@ -92,6 +93,7 @@ const Home = () => {
         try {
           // Set up the query to fetch the food data from Sanity
           const query = `*[_type == "food" && category == "Rice"][0...4]{
+          _id,
           title,
           price,
           "image01": image01.asset->{
@@ -131,6 +133,7 @@ const Home = () => {
         try {
           // Set up the query to fetch the food data from Sanity
           const query = `*[_type == "food" && category == "Snacks"][0...4]{
+          _id,
           title,
           price,
           "image01": image01.asset->{
@@ -164,6 +167,7 @@ const Home = () => {
         try {
           // Set up the query to fetch the food data from Sanity
           const query = `*[_type == "food" && category == "Soup & Swallow"][0...4]{
+          _id,
           title,
           price,
           "image01": image01.asset->{
@@ -202,6 +206,7 @@ const Home = () => {
         try {
           // Set up the query to fetch the food data from Sanity
           const query = `*[_type == "food" && category == "Sides"][0...3]{
+          _id,
           title,
           price,
           "image01": image01.asset->{

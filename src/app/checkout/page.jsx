@@ -86,7 +86,7 @@ const Checkout = () => {
   const deliveryFee = entries[enterRoute];
   console.log(deliveryFee);
 
-  const deliveryFeeVat = parseInt(deliveryFee) + 30;
+  const deliveryFeeVat = parseInt(deliveryFee);
 
   const txRef =
     "GourmetChefCuisine_" + Math.floor(Math.random() * 1000000000 + 1);
@@ -101,7 +101,7 @@ const Checkout = () => {
   console.log(orderDate, orderId, totalItems);
 
   const cartData = data.map((item) => ({
-    id: item.id,
+    id: item._id,
     name: item.title,
     price: item.price,
     quantity: item.quantity,

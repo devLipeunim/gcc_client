@@ -24,6 +24,7 @@ const AllFoods = () => {
   useEffect(() => {
     const fetchFoods = async () => {
       const query = `*[_type == "food"]{
+        _id,
         title,
         price,
         "image01": image01.asset->{
