@@ -86,7 +86,7 @@ const Checkout = () => {
   const deliveryFee = entries[enterRoute];
   console.log(deliveryFee);
 
-  const deliveryFeeVat = parseInt(deliveryFee);
+  const deliveryFeeVat = parseInt(deliveryFee)
 
   const txRef =
     "GourmetChefCuisine_" + Math.floor(Math.random() * 1000000000 + 1);
@@ -164,7 +164,7 @@ const Checkout = () => {
       orderId: orderId,
       orderDate: orderDate,
       orderTotal: totalAmount,
-      address: `${enterAddress}, ${enterRoute}`,
+      address: `${enterAddress}, ${enterRoute}, ${enterNumber}`,
       products: data,
       totalItems: totalItems,
       subtotal: cartTotalAmount,
@@ -208,8 +208,8 @@ const Checkout = () => {
           Response.charge_response_code == "00"
         ) {
           console.log("Successful");
-          handleClearCart();
           handleSubmit();
+          handleClearCart();
           router.push("/success");
           setTimeout(() => {
             setEnterName("");
