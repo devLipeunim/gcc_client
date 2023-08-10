@@ -8,7 +8,7 @@ import "../../styles/cart-page.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import { cartActions } from "../../store/shopping-cart/cartSlice";
-// import { Link } from "react-router-dom";
+import placePic from "../../assets/images/Coo_Burger_Walking.png";
 import Link from "next/link";
 import Image from "next/image";
 const Cart = () => {
@@ -81,6 +81,23 @@ const Tr = (props) => {
   const deleteItem = () => {
     dispatch(cartActions.deleteItem(_id));
   };
+  // Check if image01 is available before trying to access its properties
+  if (!image01) {
+    // If image01 is not available yet, you can show a placeholder image or a loading indicator.
+    return (
+      <tr>
+        <td className="text-center cart__img-box">
+          <Image src={placePic} alt="Placeholder" style={{width: "100%", height:"100%"}} />
+        </td>
+        <td className="text-center">{title}</td>
+        <td className="text-center">&#8358;{price}</td>
+        <td className="text-center">{quantity}px</td>
+        <td className="text-center cart__item-del">
+          <i class="ri-delete-bin-line" onClick={deleteItem}></i>
+        </td>
+      </tr>
+    );
+  }
   return (
     <tr>
       <td className="text-center cart__img-box">

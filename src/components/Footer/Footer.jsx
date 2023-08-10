@@ -45,7 +45,7 @@ const Footer = () => {
             <h5 className="footer__title">Contact</h5>
             <ListGroup className="deliver__time-list">
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                Location:<span> Lagos Axis</span>
+                Location:<span> Lagos</span>
               </ListGroupItem>
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
                 Phone:<span> +234 806 446 1184, +234 811 412 0704</span>
@@ -102,12 +102,12 @@ const Footer = () => {
                 </Link>{" "}
               </span>
 
-              {/* <span>
-                {" "}
-                <Link to=" https://www.linkedin.com/in/eraydmrcoglu/">
-                  <i className="ri-linkedin-line"></i>
-                </Link>{" "}
-              </span> */}
+              <span>
+               
+                <Link href="https://wa.whatspp/+2348064461184">
+                  <i className="ri-whatsapp-line"></i>
+                </Link>
+              </span>
             </div>
           </Col>
         </Row>

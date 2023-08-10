@@ -49,7 +49,7 @@ const Home = () => {
     const fetchFoodData = async () => {
       try {
         // Set up the query to fetch the food data from Sanity
-        const products = `*[_type == "food"]`
+        const products = `*[_type == "food"]`;
         const query = `*[_type == "food" && category == "Stew"][0...4]{
         _id,
         title,
@@ -270,7 +270,7 @@ const Home = () => {
 
                 <div className="hero__btns d-flex align-items-center gap-5 mt-4">
                   <button className="order__btn d-flex align-items-center justify-content-between">
-                    Order now{" "}
+                    <Link href="/foods">Order now</Link>
                     <i className="ri-arrow-right-s-line animated-arrow-right"></i>
                   </button>
 
