@@ -27,7 +27,7 @@ const Contact = () => {
           marginBottom: "15px",
         }}
       >
-        <b>kindly call:</b> +234 806 446 1184, +234 811 412 0704
+        <b>kindly call:</b> +234 806 446 1184, +234 811 412 0704.
       </p>
     </div>
   );

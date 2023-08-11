@@ -36,7 +36,7 @@ const TestimonialSlider = () => {
       </div>
       <div>
         <p className="review__text">
-          &#34;Exquisite flavors delivered to my doorstep! I'm a food
+          &#34;Exquisite flavors delivered to my doorstep! I&#39;m a food
           enthusiast, and this website exceeded my expectations. The attention
           to detail in each dish is evident, and the use of fresh ingredients
           truly sets them apart. The customer service was responsive and
