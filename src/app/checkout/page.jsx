@@ -86,7 +86,7 @@ const Checkout = () => {
   const deliveryFee = entries[enterRoute];
   console.log(deliveryFee);
 
-  const deliveryFeeVat = parseInt(deliveryFee)
+  const deliveryFeeVat = parseInt(deliveryFee);
 
   const txRef =
     "GourmetChefCuisine_" + Math.floor(Math.random() * 1000000000 + 1);
@@ -155,7 +155,7 @@ const Checkout = () => {
     },
   };
 
-  const BaseUrl = "https://gcc-backendd.onrender.com";
+  const BaseUrl = "https://gourmet-chef-cuisine-mailer.vercel.app";
 
   const handleSubmit = async () => {
     const payload = {
@@ -168,11 +168,11 @@ const Checkout = () => {
       products: data,
       totalItems: totalItems,
       subtotal: cartTotalAmount,
-      deliveryFee: deliveryFee
+      deliveryFee: deliveryFee,
     };
 
     try {
-      const response = await fetch(`${BaseUrl}/api/v1/reciept/send`, {
+      const response = await fetch(`${BaseUrl}/api/v1/send`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

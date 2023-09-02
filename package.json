@@ -34,7 +34,6 @@
     "reactstrap": "^9.2.0",
     "remixicon": "^3.4.0",
     "sanity": "^3.14.4",
-    "sib-api-v3-sdk": "^8.5.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "5.2"
   }
