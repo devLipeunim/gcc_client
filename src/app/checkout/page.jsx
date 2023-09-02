@@ -155,7 +155,7 @@ const Checkout = () => {
     },
   };
 
-  const BaseUrl = "https://gourmet-chef-cuisine-mailer.vercel.app";
+  const BaseUrl = "https://gourmetchefcuisine-mailer.onrender.com";
 
   const handleSubmit = async () => {
     const payload = {
