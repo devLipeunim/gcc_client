@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
+import { client } from "../../../sanity/lib/client";
 import { cartActions } from "../../store/shopping-cart/cartSlice";
 import { Container, Row, Col } from "reactstrap";
 import CommonSection from "../../components/UI/common-section/CommonSection";
@@ -15,78 +16,93 @@ const Checkout = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+  const [locations, setLocations] = useState([]);
+  useEffect(() => {
+    // Fetch location entries from Sanity
+    client
+      .fetch('*[_type == "location"]')
+      .then((data) => {
+        // Set the fetched data in the state
+        setLocations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching locations from Sanity:", error);
+      });
+  }, []);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocationFee, setSelectedLocationFee] = useState(0);
   const [enterName, setEnterName] = useState("");
   const [enterEmail, setEnterEmail] = useState("");
   const [enterNumber, setEnterNumber] = useState("");
   const [enterAddress, setEnterAddress] = useState("");
-  const [enterRoute, setEnterRoute] = useState("");
+ // const [enterRoute, setEnterRoute] = useState("");
   const [orderNote, setOrderNote] = useState("");
 
-  const entries = {
-    abule: 10,
-    agege: 300,
-    agidingbi: 500,
-    aguda: 300,
-    ajah: 200,
-    ajegunle: 500,
-    ajeromiIfelodun: 200,
-    akerele: 300,
-    akoka: 200,
-    alaba: 300,
-    alausa: 500,
-    alimosho: 300,
-    apapa: 200,
-    badagry: 300,
-    bariga: 500,
-    coker: 300,
-    dopemu: 200,
-    ebuteMetta: 300,
-    epe: 200,
-    festacTown: 500,
-    gbagada: 200,
-    idumota: 300,
-    ifakoIjaye: 200,
-    ijesha: 500,
-    ikeja: 200,
-    ikorodu: 300,
-    ikoyi: 500,
-    ilupeju: 300,
-    iyanaIpaja: 500,
-    ketu: 300,
-    lagosIsland: 200,
-    lagosMainland: 300,
-    lawanson: 200,
-    lekki: 300,
-    marina: 200,
-    maryland: 500,
-    mazaMaza: 200,
-    mende: 300,
-    mile2: 200,
-    mushin: 300,
-    obalende: 200,
-    ogba: 300,
-    ojo: 200,
-    ojoduBerger: 500,
-    ojota: 200,
-    ojuelegba: 300,
-    onipanu: 500,
-    oregun: 300,
-    oshodiIsolo: 200,
-    palmgrove: 500,
-    satelliteTown: 200,
-    shomolu: 300,
-    surulere: 500,
-    takwaBay: 300,
-    tinubuSquare: 200,
-    victoriaIsland: 500,
-    yaba: 500,
-    others: 1000,
-  };
+  // const entries = {
+  //   abule: 10,
+  //   agege: 300,
+  //   agidingbi: 500,
+  //   aguda: 300,
+  //   ajah: 200,
+  //   ajegunle: 500,
+  //   ajeromiIfelodun: 200,
+  //   akerele: 300,
+  //   akoka: 200,
+  //   alaba: 300,
+  //   alausa: 500,
+  //   alimosho: 300,
+  //   apapa: 200,
+  //   badagry: 300,
+  //   bariga: 500,
+  //   coker: 300,
+  //   dopemu: 200,
+  //   ebuteMetta: 300,
+  //   epe: 200,
+  //   festacTown: 500,
+  //   gbagada: 200,
+  //   idumota: 300,
+  //   ifakoIjaye: 200,
+  //   ijesha: 500,
+  //   ikeja: 200,
+  //   ikorodu: 300,
+  //   ikoyi: 500,
+  //   ilupeju: 300,
+  //   iyanaIpaja: 500,
+  //   ketu: 300,
+  //   lagosIsland: 200,
+  //   lagosMainland: 300,
+  //   lawanson: 200,
+  //   lekki: 300,
+  //   marina: 200,
+  //   maryland: 500,
+  //   mazaMaza: 200,
+  //   mende: 300,
+  //   mile2: 200,
+  //   mushin: 300,
+  //   obalende: 200,
+  //   ogba: 300,
+  //   ojo: 200,
+  //   ojoduBerger: 500,
+  //   ojota: 200,
+  //   ojuelegba: 300,
+  //   onipanu: 500,
+  //   oregun: 300,
+  //   oshodiIsolo: 200,
+  //   palmgrove: 500,
+  //   satelliteTown: 200,
+  //   shomolu: 300,
+  //   surulere: 500,
+  //   takwaBay: 300,
+  //   tinubuSquare: 200,
+  //   victoriaIsland: 500,
+  //   yaba: 500,
+  //   others: 1000,
+  // };
 
-  const deliveryFee = entries[enterRoute];
-  console.log(deliveryFee);
+  // const deliveryFee = entries[enterRoute];
+  // console.log(deliveryFee);
 
-  const deliveryFeeVat = parseInt(deliveryFee);
+  // const deliveryFeeVat = parseInt(deliveryFee);
 
   const txRef =
     "GourmetChefCuisine_" + Math.floor(Math.random() * 1000000000 + 1);
@@ -114,8 +130,8 @@ const Checkout = () => {
 
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
   const totalAmount =
-    deliveryFee !== undefined
-      ? parseInt(cartTotalAmount) + parseInt(deliveryFeeVat)
+    selectedLocationFee !== undefined
+      ? parseInt(cartTotalAmount) + parseInt(selectedLocationFee)
       : cartTotalAmount;
   console.log(totalAmount);
 
@@ -144,7 +160,7 @@ const Checkout = () => {
     meta: {
       phone: enterNumber,
       address: enterAddress,
-      route: enterRoute,
+      route: selectedLocation,
       itemSelected: cartDataInfo,
       orderNote: orderNote,
     },
@@ -164,11 +180,11 @@ const Checkout = () => {
       orderId: orderId,
       orderDate: orderDate,
       orderTotal: totalAmount,
-      address: `Address: ${enterAddress}, Route: ${enterRoute}, Phone Number: ${enterNumber}`,
+      address: `Address: ${enterAddress}, Route: ${selectedLocation}, Phone Number: ${enterNumber}`,
       products: data,
       totalItems: totalItems,
       subtotal: cartTotalAmount,
-      deliveryFee: deliveryFee,
+      deliveryFee: selectedLocationFee,
     };
 
     try {
@@ -274,71 +290,26 @@ const Checkout = () => {
                 <div className="form__group sorting__widget">
                   <select
                     className=""
-                    value={enterRoute}
+                    value={selectedLocation}
                     onChange={(e) => {
-                      setEnterRoute(e.target.value);
+                      const selectedLocationName = e.target.value;
+                      setSelectedLocation(selectedLocationName);
+
+                      // Find the fee for the selected location
+                      const fee =
+                        locations.find(
+                          (location) => location.name === selectedLocationName
+                        )?.fee || 0;
+                      setSelectedLocationFee(fee);
                     }}
                     required
                   >
                     <option value="">Select Route</option>
-                    <option value="abule">Abule</option>
-                    <option value="agege">Agege</option>
-                    <option value="agidingbi">Agidingbi</option>
-                    <option value="aguda">Aguda</option>
-                    <option value="ajah">Ajah</option>
-                    <option value="ajegunle">Ajegunle</option>
-                    <option value="ajeromiIfelodun">Ajeromi-Ifelodun</option>
-                    <option value="akerele">Akerele</option>
-                    <option value="akoka">Akoka</option>
-                    <option value="alaba">Alaba</option>
-                    <option value="alausa">Alausa</option>
-                    <option value="alimosho">Alimosho</option>
-                    <option value="apapa">Apapa</option>
-                    <option value="badagry">Badagry</option>
-                    <option value="bariga">Bariga</option>
-                    <option value="coker">Coker</option>
-                    <option value="dopemu">Dopemu</option>
-                    <option value="ebuteMetta">Ebute-Metta</option>
-                    <option value="epe">Epe</option>
-                    <option value="festacTown">Festac-Town</option>
-                    <option value="gbagada">Gbagada</option>
-                    <option value="idumota">Idumota</option>
-                    <option value="ifakoIjaye">Ifako-Ijaye</option>
-                    <option value="ijesha">Ijesha</option>
-                    <option value="ikeja">Ikeja</option>
-                    <option value="ikorodu">Ikorodu</option>
-                    <option value="ikoyi">Ikoyi</option>
-                    <option value="ilupeju">Ilupeju</option>
-                    <option value="iyanaIpaja">Iyana-Ipaja</option>
-                    <option value="ketu">Ketu</option>
-                    <option value="lagosIsland">Lagos-Island</option>
-                    <option value="lagosMainland">Lagos-Mainland</option>
-                    <option value="lawanson">Lawanson</option>
-                    <option value="lekki">Lekki</option>
-                    <option value="marina">Marina</option>
-                    <option value="maryland">Maryland</option>
-                    <option value="mazaMaza">Maza-Maza</option>
-                    <option value="mende">Mende</option>
-                    <option value="mile2">Mile-2</option>
-                    <option value="mushin">Mushin</option>
-                    <option value="obalende">Obalende</option>
-                    <option value="ogba">Ogba</option>
-                    <option value="ojo">Ojo</option>
-                    <option value="ojoduBerger">Ojodu-Berger</option>
-                    <option value="ojota">Ojota</option>
-                    <option value="ojuelegba">Ojuelegba</option>
-                    <option value="onipanu">Onipanu</option>
-                    <option value="oregun">Oregun</option>
-                    <option value="oshodiIsolo">Oshodi-Isolo</option>
-                    <option value="palmgrove">Palmgrove</option>
-                    <option value="satelliteTown">Satellite-Town</option>
-                    <option value="shomolu">Shomolu</option>
-                    <option value="surulere">Surulere</option>
-                    <option value="takwaBay">Takwa-Bay</option>
-                    <option value="tinubuSquare">Tinubu-Square</option>
-                    <option value="victoriaIsland">Victoria-Island</option>
-                    <option value="yaba">Yaba</option>
-                    <option value="others">Others</option>
+                    {locations.map((location) => (
+                      <option key={location._id} value={location.name}>
+                        {location.name}
+                      </option>
+                    ))}
                   </select>
                   {/* <input
                     type="text"
@@ -367,7 +338,7 @@ const Checkout = () => {
                   Subtotal: <span>&#8358;{cartTotalAmount}</span>
                 </h6>
                 <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Delivery fee + VAT: <span>&#8358;{deliveryFee}</span>
+                  Delivery fee: <span>&#8358;{selectedLocationFee}</span>
                 </h6>
                 <div className="checkout__total">
                   <h5 className="d-flex align-items-center justify-content-between">
