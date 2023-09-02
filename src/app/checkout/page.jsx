@@ -164,7 +164,7 @@ const Checkout = () => {
       orderId: orderId,
       orderDate: orderDate,
       orderTotal: totalAmount,
-      address: `${enterAddress}, ${enterRoute}, ${enterNumber}`,
+      address: `Address: ${enterAddress}, Route: ${enterRoute}, Phone Number: ${enterNumber}`,
       products: data,
       totalItems: totalItems,
       subtotal: cartTotalAmount,
